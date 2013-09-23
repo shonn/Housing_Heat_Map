@@ -5,7 +5,7 @@ import string
 """This script pulls real estate data"""
 
 count = 0
-with open('zipcodes.bak', 'r') as zipfile, open('dataset5.txt', 'w') as datafile:
+with open('zipcodes.bak', 'r') as zipfile, open('dataset.txt', 'w') as datafile:
   for zipcode in zipfile:
     zipcode = zipcode.rstrip()
     if count == 9000:
