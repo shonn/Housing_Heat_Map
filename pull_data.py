@@ -3,7 +3,7 @@ import Quandl
 import string
 
 """This script pulls real estate data"""
-
+ 
 count = 0
 with open('zipcodes.bak', 'r') as zipfile, open('dataset.txt', 'w') as datafile:
   for zipcode in zipfile:
