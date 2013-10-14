@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  	
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="{{STATIC_URL}}/static/assets/ico/favicon.png" >
+
+    <title>Housing HeatMap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{STATIC_URL}}/static/dist/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{STATIC_URL}}/static/examples/starter-template/starter-template.css" rel="stylesheet">
+	<!-- Le styles -->
+    <link href="{{STATIC_URL}}/static/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}/static/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}/static/assets/css/docs.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}/static/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="{{STATIC_URL}}/static/assets/js/html5shiv.js"></script>
+      <script src="{{STATIC_URL}}/static/assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Housing Heat Map</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="starter-template">
+        <h1>Housing Heat Map</h1>
+        <p class="lead">Enter the Following:</p>
+      </div>
+	
+	<ul class="nav nav-pills">
+              <li class="dropdown">
+                <a class="dropdown-toggle" id="drop5" role="button" data-toggle="dropdown" href="#">From <b class="caret"></b></a>
+                <ul id="menu2" class="dropdown-menu" role="menu" aria-labelledby="drop5">
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1997</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1998</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1999</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2000</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2001</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2002</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2003</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2004</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2005</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2006</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2007</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2008</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2009</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2010</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2011</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2012</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2013</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" id="drop5" role="button" data-toggle="dropdown" href="#">To <b class="caret"></b></a>
+                <ul id="menu3" class="dropdown-menu" role="menu" aria-labelledby="drop5">
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1997</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1998</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">1999</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2000</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2001</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2002</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2003</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2004</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2005</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2006</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2007</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2008</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2009</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2010</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2011</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2012</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">2013</a></li>
+                </ul>
+              </li>
+            <div class="bs-docs-example" style="padding-bottom: 24px;">
+              <button type="button" id="fat-btn" data-loading-text="loading..." class="btn btn-primary">
+                Go!
+              </button>
+            </div>
+            
+            </ul>
+	
+	
+
+	
+	{% for h in house %}
+	{{ h.house_date }}
+	${{ h.house_price }}
+	{{ h.house_zip }}<br>
+	{% endfor %}
+	
+    </div><!-- /.container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="{{STATIC_URL}}/static/text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+    <script src="{{STATIC_URL}}/static/assets/js/jquery.js"></script>
+    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-transition.js"></script>
+    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-alert.js"></script>
+    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-modal.js"></script>
+    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-dropdown.js"></script>
+    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-scrollspy.js"></script>
+    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-tab.js"></script>
+    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-tooltip.js"></script>
+    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-popover.js"></script>
+    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-button.js"></script>
+    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-collapse.js"></script>
+    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-carousel.js"></script>
+    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-typeahead.js"></script>
+    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-affix.js"></script>
+
+    <script src="{{STATIC_URL}}/static/assets/js/holder/holder.js"></script>
+    <script src="{{STATIC_URL}}/static/assets/js/google-code-prettify/prettify.js"></script>
+
+    <script src="{{STATIC_URL}}/static/assets/js/application.js"></script>
+    <script src="{{STATIC_URL}}/static/assets/js/jquery.js"></script>
+    <script src="{{STATIC_URL}}/static/dist/js/bootstrap.min.js"></script>
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+  </body>
+</html>
+
+
