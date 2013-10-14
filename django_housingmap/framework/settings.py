@@ -2,7 +2,7 @@
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-ROOT = 'C:/Users/Swathi/git/Housing_Heat_Map/' #TODO: Change this!
+ROOT = '/home/ssn/SJSU/Fall2013/CS157A/Housing_Heat_Map/' #TODO: Change this!
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -69,7 +69,7 @@ STATIC_ROOT = ''
 STATIC_URL = '/static/'
 
 # Additional locations of static files
-STATICFILES_DIRS = ( ROOT + 'framework/HeatMap/static/framework/bootstrap-3.0.0/',
+STATICFILES_DIRS = ( ROOT + 'django_housingmap/HeatMap/static/framework/bootstrap-3.0.0/',
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -108,7 +108,7 @@ ROOT_URLCONF = 'framework.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'framework.wsgi.application'
 
-TEMPLATE_DIRS = (ROOT + 'framework/templates',
+TEMPLATE_DIRS = (ROOT + 'django_housingmap/templates',
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -121,7 +121,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'south',
+    #'south',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
