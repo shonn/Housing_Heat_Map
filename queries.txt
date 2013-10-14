@@ -19,3 +19,4 @@ select zipcode, (h2.home_price - h1.home_price)/h1.home_price as change where ch
 JOIN 
 house_data as h2 on h1.zipcode = h2.zipcode
 and h1.date like %yearx1; 
+
