@@ -1,0 +1,14 @@
+{% if shapes %}
+{
+  "type": "FeatureCollection",
+  "features": [
+    {% for shape in shapes %}
+    	{ "type": "Feature",
+    		"geometry": {{shape.json}},
+    		"properties": {"prop0": "value0"}
+    	},
+    {% endfor %}
+    ]}
+{% else %}
+    <p>No shapes are available.</p>
+{% endif %}
