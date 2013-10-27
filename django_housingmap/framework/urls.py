@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^home/', include('HeatMap.urls')),
+    url(r'^home/', include('HeatMap.urls', namespace = 'HeatMap')),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 

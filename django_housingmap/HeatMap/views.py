@@ -12,22 +12,41 @@ def zip(request, zip):
     p = HouseData.objects.filter(house_zip=zip)
     return render_to_response('results.html', {'house': p})
     
+def price_growth_in_bounding_box_to_geojson_form(request):
+	context = {'action': 'price_growth_in_bounding_box_to_geojson',
+		'westLongitude': -122.110097522937,
+		'eastLongitude': -122.06074487706297,
+		'northLatitude': 37.4348799782838,
+		'southLatitude': 37.410954310473784,}
+	return render(request, 'HeatMap/BoxTest.html', context)  
+	  
 def price_growth_in_bounding_box_to_geojson(request):
-	querystr = '''select gid, zcta5ce10, ST_asGeoJSON(geom) as json
-					from zipcodeshapes 
-					WHERE ST_intersects(geom, 
-						ST_GeomFromText('Polygon((-122.110097522937 37.410954310473784, 
-											-122.06074487706297 37.410954310473784, 
-											-122.06074487706297 37.4348799782838, 
-											-122.110097522937 37.4348799782838, 
-											-122.110097522937 37.410954310473784))',4269))
-				'''
-	shapes = Zipcodeshapes.objects.raw(querystr)
-	context = {'shapes':shapes}
-	for s in shapes:
-		print(s.json)
-	return render(request, 'HeatMap/GeoJSON.json', context)
-	
+	try:
+		westLongitude = request.POST['westLongitude']
+		eastLongitude = request.POST['eastLongitude']
+		northLatitude = request.POST['northLatitude']
+		southLatitude = request.POST['southLatitude']
+		box_wkt='Polygon((' + westLongitude + ' ' + southLatitude + ','
+		box_wkt+= westLongitude + ' ' + northLatitude + ','
+		box_wkt+= eastLongitude + ' ' + northLatitude + ','
+		box_wkt+= eastLongitude + ' ' + southLatitude + ','
+		box_wkt+= westLongitude + ' ' + southLatitude + '))'
+		shapes = Zipcodeshapes.objects.filter(geom__intersects = box_wkt)
+	except (KeyError):
+		return price_growth_in_bounding_box_to_geojson_form(request)
+	except (Zipcodeshapes.DoesNotExist, ValueError):
+		return render(request, 'HeatMap/BoxTest.html', {
+			'action':'price_growth_in_bounding_box_to_geojson',
+			'westLongitude': westLongitude,
+			'eastLongitude': eastLongitude,
+			'northLatitude': northLatitude,
+			'southLatitude': southLatitude,
+			'error_message':'There was an error processing your request',
+		})
+	else:
+		context = {'shapes':shapes}
+		return render(request, 'HeatMap/GeoJSON.json', context)
+
 def zip_code_test(request):
 	context = {}
 	return render(request, 'HeatMap/ZipCodeTest.html', context)

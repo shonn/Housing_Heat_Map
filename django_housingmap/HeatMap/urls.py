@@ -7,7 +7,8 @@ from django.conf.urls.static import static
 # admin.autodiscover()
 
 urlpatterns = patterns('HeatMap.views',
-	url(r'^getHousingGrowthinBoundingbox.json$', 'price_growth_in_bounding_box_to_geojson'),
+	url(r'^getHousingGrowthinBoundingbox.json$', 'price_growth_in_bounding_box_to_geojson', name ='price_growth_in_bounding_box_to_geojson'),
+	url(r'^getHousingGrowthinBoundingboxTestForm.html$','price_growth_in_bounding_box_to_geojson_form'),
 	url(r'^ZipCodeTest.html$', 'zip_code_test'),
 	url(r'^GeoJSON.js$','geojson_js_parser'),
     url(r'^(?P<zip>\d+)/$', 'zip'),

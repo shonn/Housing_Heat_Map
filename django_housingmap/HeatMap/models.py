@@ -1,4 +1,4 @@
-from django.db import models
+from django.contrib.gis.db import models
 
 # Create your models here.
 # This is an auto-generated Django model module.
@@ -10,8 +10,12 @@ from django.db import models
 # Also note: You'll have to insert the output of 'django-admin.py sqlcustom [appname]'
 # into your database.
 
-from django.db import models
-
+# 10-24-13 Alex Wu
+# 	- Commented out all models except Zipcodeshapes and HouseData because those are the
+#	models we'll actually use.
+#   - import models from django.contrib.gis.db no enable GIS functionality
+#   - Zipcodeshapes.geom is now a proper 
+'''
 class GeographyColumns(models.Model):
     f_table_catalog = models.TextField(blank=True) # This field type is a guess.
     f_table_schema = models.TextField(blank=True) # This field type is a guess.
@@ -53,8 +57,8 @@ class RasterColumns(models.Model):
     scale_y = models.FloatField(null=True, blank=True)
     blocksize_x = models.IntegerField(null=True, blank=True)
     blocksize_y = models.IntegerField(null=True, blank=True)
-    same_alignment = models.BooleanField(null=True, blank=True)
-    regular_blocking = models.BooleanField(null=True, blank=True)
+    same_alignment = models.NullBooleanField(null=True, blank=True)
+    regular_blocking = models.NullBooleanField(null=True, blank=True)
     num_bands = models.IntegerField(null=True, blank=True)
     pixel_types = models.TextField(blank=True) # This field type is a guess.
     nodata_values = models.TextField(blank=True) # This field type is a guess.
@@ -510,7 +514,7 @@ class LoaderLookuptables(models.Model):
     level_state = models.BooleanField()
     level_nation = models.BooleanField()
     post_load_process = models.TextField(blank=True)
-    single_geom_mode = models.BooleanField(null=True, blank=True)
+    single_geom_mode = models.NullBooleanField(null=True, blank=True)
     insert_mode = models.CharField(max_length=1)
     pre_load_process = models.TextField(blank=True)
     columns_exclude = models.TextField(blank=True) # This field type is a guess.
@@ -555,22 +559,26 @@ class Tabblock(models.Model):
     the_geom = models.TextField(blank=True) # This field type is a guess.
     class Meta:
         db_table = u'tabblock'
-
+'''
 class Zipcodeshapes(models.Model):
-    gid = models.IntegerField(primary_key=True)
-    zcta5ce10 = models.CharField(max_length=5, blank=True)
-    geoid10 = models.CharField(max_length=5, blank=True)
-    classfp10 = models.CharField(max_length=2, blank=True)
-    mtfcc10 = models.CharField(max_length=5, blank=True)
-    funcstat10 = models.CharField(max_length=1, blank=True)
-    aland10 = models.FloatField(null=True, blank=True)
-    awater10 = models.FloatField(null=True, blank=True)
-    intptlat10 = models.CharField(max_length=11, blank=True)
-    intptlon10 = models.CharField(max_length=12, blank=True)
-    geom = models.TextField(blank=True) # This field type is a guess.
-    class Meta:
-        db_table = u'zipcodeshapes'
-
+	gid = models.IntegerField(primary_key=True)
+	zcta5ce10 = models.CharField(max_length=5, blank=True)
+	geoid10 = models.CharField(max_length=5, blank=True)
+	classfp10 = models.CharField(max_length=2, blank=True)
+	mtfcc10 = models.CharField(max_length=5, blank=True)
+	funcstat10 = models.CharField(max_length=1, blank=True)
+	aland10 = models.FloatField(null=True, blank=True)
+	awater10 = models.FloatField(null=True, blank=True)
+	intptlat10 = models.CharField(max_length=11, blank=True)
+	intptlon10 = models.CharField(max_length=12, blank=True)
+	geom = models.MultiPolygonField(srid=4269, blank=True)
+	objects = models.GeoManager()
+	
+	def __unicode__(self):
+		return self.zcta5ce10
+	class Meta:
+		db_table = u'zipcodeshapes'
+'''
 class Bg(models.Model):
     gid = models.IntegerField()
     statefp = models.CharField(max_length=2, blank=True)
@@ -612,7 +620,7 @@ class PagcLex(models.Model):
 class PagcRules(models.Model):
     id = models.IntegerField(primary_key=True)
     rule = models.TextField(blank=True)
-    is_custom = models.BooleanField(null=True, blank=True)
+    is_custom = models.NullBooleanField(null=True, blank=True)
     class Meta:
         db_table = u'pagc_rules'
 
@@ -688,7 +696,7 @@ class DjangoSite(models.Model):
     name = models.CharField(max_length=50)
     class Meta:
         db_table = u'django_site'
-
+'''
 class HouseData(models.Model):
     house_zip = models.IntegerField(primary_key=True)
     house_date = models.DateField()

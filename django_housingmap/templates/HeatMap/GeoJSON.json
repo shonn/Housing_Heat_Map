@@ -1,14 +1,16 @@
+{% autoescape off %}
 {% if shapes %}
 {
   "type": "FeatureCollection",
   "features": [
     {% for shape in shapes %}
     	{ "type": "Feature",
-    		"geometry": {{shape.json}},
-    		"properties": {"prop0": "value0"}
-    	},
+    		"geometry": {{shape.geom.geojson}},
+    		"properties": {"name": "{{shape.zcta5ce10}}"}
+    	}{% if not forloop.last%},{% endif %}
     {% endfor %}
     ]}
 {% else %}
     <p>No shapes are available.</p>
 {% endif %}
+{% endautoescape %}

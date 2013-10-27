@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+{% if error_message %} <p><strong>{{ error_message }}</strong></p> {% endif %}
+
+<form action="{% url 'HeatMap:price_growth_in_bounding_box_to_geojson' %}" method ='post'>
+	{% csrf_token %}
+	<label for="westLongitude">West Longitude:</label>
+	<input type="text" name="westLongitude" id="westLongitude" value="{{westLongitude}}"/><br/>
+	
+	<label for="eastLongitude">East Longitude:</label>
+	<input type="text" name="eastLongitude" id="eastLongitude" value="{{eastLongitude}}"/><br/>
+	
+	<label for="northLatitude">North Latitude:</label>
+	<input type="text" name="northLatitude" id="northLatitude" value="{{northLatitude}}"/><br/>
+	
+	<label for="southLatitude">South Latitude:</label>
+	<input type="text" name="southLatitude" id="southLatitude" value="{{southLatitude}}"/><br/>
+<input type="submit" value="submit"/>
+</form>
+</body>
+</html>
