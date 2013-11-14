@@ -1,12 +1,14 @@
 {% autoescape off %}
-{% if shapes %}
+{% if data %}
 {
   "type": "FeatureCollection",
   "features": [
-    {% for shape in shapes %}
+    {% for datum in data %}
     	{ "type": "Feature",
-    		"geometry": {{shape.geom.geojson}},
-    		"properties": {"name": "{{shape.zcta5ce10}}"}
+    		"geometry": {{datum.shape}},
+    		"properties": {"name": "{{datum.name}}",
+    						"value":"{{datum.value}}",
+    						"value-type":"{{datum.type}}"}
     	}{% if not forloop.last%},{% endif %}
     {% endfor %}
     ]}

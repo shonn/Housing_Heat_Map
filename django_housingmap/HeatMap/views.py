@@ -21,17 +21,30 @@ def price_growth_in_bounding_box_to_geojson_form(request):
 	return render(request, 'HeatMap/BoxTest.html', context)  
 	  
 def price_growth_in_bounding_box_to_geojson(request):
+	data_things = []
 	try:
-		westLongitude = request.POST['westLongitude']
-		eastLongitude = request.POST['eastLongitude']
-		northLatitude = request.POST['northLatitude']
-		southLatitude = request.POST['southLatitude']
+		southLatitude = request.GET['southLatitude']
+		westLongitude = request.GET['westLongitude']
+		eastLongitude = request.GET['eastLongitude']
+		northLatitude = request.GET['northLatitude']
 		box_wkt='Polygon((' + westLongitude + ' ' + southLatitude + ','
 		box_wkt+= westLongitude + ' ' + northLatitude + ','
 		box_wkt+= eastLongitude + ' ' + northLatitude + ','
 		box_wkt+= eastLongitude + ' ' + southLatitude + ','
 		box_wkt+= westLongitude + ' ' + southLatitude + '))'
 		shapes = Zipcodeshapes.objects.filter(geom__intersects = box_wkt)
+		year1 = request.GET['year1']
+		year2 = request.GET['year2']
+		for shape in shapes:
+			try:
+				price1 = HouseData.objects.get(house_zip=shape.zcta5ce10, house_date__year = year1).house_price
+				price2 = HouseData.objects.get(house_zip=shape.zcta5ce10, house_date__year = year2).house_price
+				data_things.append({'shape':shape.geom.geojson, 
+					'name':shape.zcta5ce10, 
+					'type': 'price_growth',
+					'value': (price2-price1)/price1})
+			except(HouseData.DoesNotExist):
+				continue
 	except (KeyError):
 		return price_growth_in_bounding_box_to_geojson_form(request)
 	except (Zipcodeshapes.DoesNotExist, ValueError):
@@ -44,7 +57,7 @@ def price_growth_in_bounding_box_to_geojson(request):
 			'error_message':'There was an error processing your request',
 		})
 	else:
-		context = {'shapes':shapes}
+		context={'data': data_things}
 		return render(request, 'HeatMap/GeoJSON.json', context)
 
 def zip_code_test(request):

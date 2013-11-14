@@ -698,10 +698,32 @@ class DjangoSite(models.Model):
         db_table = u'django_site'
 '''
 class HouseData(models.Model):
-    house_zip = models.IntegerField(primary_key=True)
+    house_zip = models.CharField(max_length=5, primary_key=True)
     house_date = models.DateField()
-    house_price = models.IntegerField()
+    house_price = models.FloatField()
     class Meta:
         unique_together = (("house_zip", "house_date"),)
         db_table = u'house_data'
-
+'''
+class Zipcode(models.Model):
+	gid = models.IntegerField(primary_key=True)
+	zcta5ce10 = models.CharField(max_length=5, blank=True)
+	geoid10 = models.CharField(max_length=5, blank=True)
+	classfp10 = models.CharField(max_length=2, blank=True)
+	mtfcc10 = models.CharField(max_length=5, blank=True)
+	funcstat10 = models.CharField(max_length=1, blank=True)
+	aland10 = models.FloatField(null=True, blank=True)
+	awater10 = models.FloatField(null=True, blank=True)
+	intptlat10 = models.CharField(max_length=11, blank=True)
+	intptlon10 = models.CharField(max_length=12, blank=True)
+	geom = models.MultiPolygonField(srid=4269, blank=True)
+	objects = models.GeoManager()
+	
+	def __unicode__(self):
+		return self.zcta5ce10
+		
+class HousingPriceByZip(models.Model):
+	zipcode = models.ForeignKey(Zipcode)
+	date = models.DateField()
+	price = models.Float()
+	'''
