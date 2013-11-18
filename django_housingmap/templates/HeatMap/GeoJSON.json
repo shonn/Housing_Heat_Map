@@ -7,7 +7,7 @@
     	{ "type": "Feature",
     		"geometry": {{datum.shape}},
     		"properties": {"name": "{{datum.name}}",
-    						"value":"{{datum.value}}",
+    						"value":{{datum.value}},
     						"value-type":"{{datum.type}}"}
     	}{% if not forloop.last%},{% endif %}
     {% endfor %}
