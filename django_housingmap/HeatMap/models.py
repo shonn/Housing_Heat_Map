@@ -699,7 +699,7 @@ class DjangoSite(models.Model):
 '''
 class HouseData(models.Model):
     house_zip = models.CharField(max_length=5, primary_key=True)
-    house_date = models.DateField()
+    house_date = models.CharField(max_length=10)
     house_price = models.FloatField()
     class Meta:
         unique_together = (("house_zip", "house_date"),)
