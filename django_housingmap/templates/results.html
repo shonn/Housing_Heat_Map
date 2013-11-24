@@ -14,22 +14,21 @@
     <!-- Bootstrap core CSS -->
     <link href="{{STATIC_URL}}/static/dist/css/bootstrap.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="{{STATIC_URL}}/static/examples/starter-template/starter-template.css" rel="stylesheet">
-	<!-- Le styles -->
-    <link href="{{STATIC_URL}}/static/assets/css/bootstrap.css" rel="stylesheet">
-    <link href="{{STATIC_URL}}/static/assets/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="{{STATIC_URL}}/static/assets/css/docs.css" rel="stylesheet">
-    <link href="{{STATIC_URL}}/static/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="{{STATIC_URL}}/static/assets/js/html5shiv.js"></script>
-      <script src="{{STATIC_URL}}/static/assets/js/respond.min.js"></script>
-    <![endif]-->
+    <!-- code to include the highcharts and jQuery libraries goes here -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <!-- load_charts filter takes a comma-separated list of id's where -->
+    <!-- the charts need to be rendered to                             -->
+    {% load chartit %}
   </head>
 
   <body>
+  <br>
+  <br>
 
+  <h1>Housing Price Trends</h1>
+
+  <div id="house_container"> {{housedata|load_charts:"house_container"}}</div>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -50,13 +49,6 @@
       </div>
     </div>
 
-    <div class="container">
-
-      <div class="starter-template">
-        <h1>Housing Heat Map</h1>
-
-      </div>
-
 	<form action>
 		Enter ZipCode: <input type="text" name="Zip" value="i.e. 91129"><input type="submit" value="Go">
 	</form>
@@ -70,33 +62,6 @@
 	{% endif %}
 	
     </div><!-- /.container -->
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script type="{{STATIC_URL}}/static/text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-    <script src="{{STATIC_URL}}/static/assets/js/jquery.js"></script>
-    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-transition.js"></script>
-    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-alert.js"></script>
-    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-modal.js"></script>
-    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-dropdown.js"></script>
-    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-scrollspy.js"></script>
-    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-tab.js"></script>
-    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-tooltip.js"></script>
-    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-popover.js"></script>
-    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-button.js"></script>
-    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-collapse.js"></script>
-    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-carousel.js"></script>
-    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-typeahead.js"></script>
-    <script src="{{STATIC_URL}}/static/assets/js/bootstrap-affix.js"></script>
-
-    <script src="{{STATIC_URL}}/static/assets/js/holder/holder.js"></script>
-    <script src="{{STATIC_URL}}/static/assets/js/google-code-prettify/prettify.js"></script>
-
-    <script src="{{STATIC_URL}}/static/assets/js/application.js"></script>
-    <script src="{{STATIC_URL}}/static/assets/js/jquery.js"></script>
-    <script src="{{STATIC_URL}}/static/dist/js/bootstrap.min.js"></script>
-    <!-- Placed at the end of the document so the pages load faster -->
     
   </body>
 </html>
