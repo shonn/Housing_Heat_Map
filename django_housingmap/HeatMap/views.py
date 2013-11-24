@@ -7,17 +7,17 @@ from django.db.models import Avg #aggregation
 from django.core.cache import cache #memcached
 from chartit import DataPool, Chart #for creating statistical charts
 
-def home(request):
-    #p = "none"#HouseData.objects.filter(house_zip=95129)
 
+def home(request, housezip):
+    #p = "none"#HouseData.objects.filter(house_zip=95129)
     #step 1, create a datapol with data we want to retrieve
     housedata = \
             DataPool(
                     series=
                     [{'options': {
-                        'source': HouseData.objects.filter(house_zip='95133')},
+                        'source': HouseData.objects.filter(house_zip=str(housezip))},
                         'terms': [
-                            'house_zip',
+                            'house_date', 
                             'house_price']}
                         ])
     #step 2, create chart object
@@ -28,12 +28,12 @@ def home(request):
                     'type': 'line',
                     'stacking': False},
                     'terms': {
-                        'house_zip': [
+                        'house_date': [
                             'house_price']
                         }}],
                     chart_options = 
                         {'title': {
-                            'text': 'House prices of zipcode 95133'},
+                            'text': 'House prices of zipcode ' + str(housezip)},
                             'xAxis': {
                                 'title': {
                                     'text': 'Date'}}})
