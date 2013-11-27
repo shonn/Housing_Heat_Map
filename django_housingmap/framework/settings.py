@@ -5,7 +5,7 @@
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-ROOT = '/Applications/XAMPP/htdocs/CS157A/Housing_Heat_Map/' #TODO: Change this!
+ROOT = '/home/ssn/SJSU/Fall2013/CS157A/Housing_Heat_Map/' #TODO: Change this!
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -102,6 +102,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -130,6 +133,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'django.contrib.gis',
+    'chartit',
     'HeatMap'
 )
 
@@ -163,3 +167,13 @@ LOGGING = {
         },
     }
 }
+
+CACHES = {
+         'default': {
+              'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+              'LOCATION': '127.0.0.1:11211',
+          }
+}
+CACHE_MIDDLEWARE_ALIAS='default'
+CACHE_MIDDLEWARE_SECONDS=600
+CACHE_MIDDLEWARE_KEY_PREFIX='' 
