@@ -74,14 +74,16 @@ def price_growth_in_bounding_box_to_geojson(request):
                 if not shapes:
                     shapes = Zipcodeshapes.objects.filter(geom__intersects = box_wkt)
                     cache.set(southLatitude + westLongitude + eastLongitude, shapes)
-                year1 = request.GET['year1']
-                year2 = request.GET['year2']
+                year = request.GET['year1']
+		year1 = str(year)+'-12-31'
+                year = request.GET['year2']
+		year2 = str(year) + '-12-31'
                 if not data_things:
                     data_things = []
                     for shape in shapes:
                             try:
-                                    price1 = HouseData.objects.get(house_zip=shape.zcta5ce10, house_date__year = year1).house_price
-                                    price2 = HouseData.objects.get(house_zip=shape.zcta5ce10, house_date__year = year2).house_price
+                                    price1 = HouseData.objects.get(house_zip=shape.zcta5ce10, house_date = year1).house_price
+                                    price2 = HouseData.objects.get(house_zip=shape.zcta5ce10, house_date = year2).house_price
                                     data_things.append({'shape':shape.geom.geojson, 
                                             'name':shape.zcta5ce10, 
                                             'type': 'price_growth',
