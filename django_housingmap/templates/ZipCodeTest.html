@@ -15,7 +15,7 @@
 		src="/home/GeoJSON.js">
 	</script>
 	<script type="text/javascript">
-	var year1 = 1998;
+	var year1 = 2001;
 	var year2 = 2013;
 	function initialize() {		
 		//Map Information
@@ -78,18 +78,35 @@
 					// assign the shapes to map
 					for(var i = 0; i < googleMapsVector.length; i++){
 						for (var j = 0; j <googleMapsVector[i].length; j++){
-              var val = Math.abs(googleMapsVector[i][j].geojsonProperties.value);
+              var val = googleMapsVector[i][j].geojsonProperties.value;
               var temp_scale = scale;
               var heat = 0;
+              var color = "";
+
               while (temp_scale < val) {
-                temp_scale = temp_scale * 2;
-                heat = heat + 55;
+                temp_scale = temp_scale * 1.2;
+                heat = heat + 1;
               }
-							var color = "rgb("+(heat)+","+(heat)+",0)";
+
+              if (heat < 1) {
+                color = "rgb("+(0)+","+(255)+",255)";
+              }
+              else if (heat < 2) {
+                color = "rgb("+(0)+","+(255)+",0)";
+              }
+              else if (heat < 3) {
+                color = "rgb("+(255)+","+(0)+",0)";
+              }
+
+              if (val < 0) {
+                color = "rgb("+(255)+","+(255)+",255)";
+              }
+
 							googleMapsVector[i][j].setOptions({
 								strokeColor: color,
 								fillColor: color});
-							googleMapsVector[i][j].setMap(map);
+              googleMapsVector[i][j].setMap(map);
+            
 						}
 					}
 				};
