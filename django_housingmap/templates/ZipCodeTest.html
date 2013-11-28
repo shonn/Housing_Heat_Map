@@ -32,7 +32,7 @@
 		
 		var polygonRequest = new XMLHttpRequest();
 		polygonRequest.onload = function() {
-					document.getElementById('debug').innerHTML += "Recieved JSON<br/>";
+					document.getElementById('debug').innerHTML += "Recieved JSON<br>";
 					var response = this.responseText;
 					//document.getElementById('debug').innerHTML += response;
 					var result = JSON.parse(response);
@@ -112,9 +112,9 @@
 				};
 		
 		google.maps.event.addListener(map,'idle', function(){		
-		  		document.getElementById('debug').innerHTML += "Idle<br/>";
+		  		document.getElementById('debug').innerHTML += "Idle<br>";
 				// asynchronous json request      
-				document.getElementById('debug').innerHTML += "Fetching JSON<br/>";
+				document.getElementById('debug').innerHTML += "Fetching JSON<br>";
 				
 				var westLongitude = map.getBounds().getSouthWest().lng();
 				var southLatitude = map.getBounds().getSouthWest().lat();
@@ -126,7 +126,7 @@
 						+ westLongitude + ' ' + northLatitude + ','
 						+ eastLongitude + ' ' + northLatitude + ','
 						+ eastLongitude + ' ' + southLatitude + ','
-						+ westLongitude + ' ' + southLatitude + '))' + '<br/>';
+						+ westLongitude + ' ' + southLatitude + '))' + '<br>';
 				
 				// abort the previous request
 				// prevents loading the wrong set of polygons
@@ -141,7 +141,7 @@
 					+"&year2="+year2;
 				//*/
 				
-				document.getElementById('debug').innerHTML+= GETstring + '<br/>';
+				document.getElementById('debug').innerHTML+= GETstring + '<br>';
 				
 				polygonRequest.open("GET", "{% url 'HeatMap:price_growth_in_bounding_box_to_geojson' %}" + GETstring, true);
 				polygonRequest.send();
@@ -154,18 +154,12 @@
 				xhr.send(myForm);
 				//*/
 		  	});
-		function goButton(){
-			//validate input
-			if(/^ddddd$/.test(document.getElementById('input_zip'))){
-				//TODO get zip coordinates, recenter map
-			}
-			if(/^dddd$/.test(document.getElementById('input_year1'))&&
-				/^dddd$/.test(document.getElementById('input_year2'))){
-				year1 = document.getElementById('input_year1');
-				year2 = document.getElementById('input_year2');
-			}
-		}
 	}
+		function goButton(){
+			year1 = document.getElementById("input_year1").value;
+			year2 = document.getElementById("input_year2").value;
+		}
+
 	google.maps.event.addDomListener(window,'load',initialize);
 	</script>
 </head>
@@ -174,18 +168,16 @@
 	{% include 'navbar2.html' %}
 
 		<div id="side-panel">
-			<form id="inputs" action="">
+			<form >
 				<fieldset>
-					<label for="input_zip">Zip: </label>
-					<input type="text" id="input_zip" name="input_zip"/><br/>
-					
+				
 					<label for="input_year1">Year1: </label>
-					<input type="text" id="input_year1" name="input_year1"/><br/>
+					<input type="text" id="input_year1" name="input_year1"/><br>
 					
 					<label for="input_year2">Year2: </label>
-					<input type="text" id="input_year2" name="input_year2"/><br/>
+					<input type="text" id="input_year2" name="input_year2"/><br>
 					
-					<input type="button" id="go" name="go" value="Go!"/>
+					<input type="button" value="Go!" onclick="goButton()"/>
 				</fieldset>
 			</form>
 			<div id="debug">
