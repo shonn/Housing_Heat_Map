@@ -2,8 +2,6 @@
 <html>
 <head>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-  <link href="{{STATIC_URL}}/static/dist/css/bootstrap.css" rel="stylesheet">
-
 	<style type="text/css">
 		html { height: 100% }
 		body {height: 100%; margin: 0; padding: 0 }
@@ -17,7 +15,7 @@
 		src="/home/GeoJSON.js">
 	</script>
 	<script type="text/javascript">
-	var year1 = 2012;
+	var year1 = 1998;
 	var year2 = 2013;
 	function initialize() {		
 		//Map Information
@@ -57,11 +55,37 @@
 					// get google map shapes from results
 					googleMapsVector = new GeoJSON(result, shapeOptions);
 														
+          //standard deviation: sqrt((sum (val - avg)^2) / n)
+          //calculate average 
+          var avg = 0;
+          var total_len = 0
+					for(var i = 0; i < googleMapsVector.length; i++){
+						for (var j = 0; j <googleMapsVector[i].length; j++){
+							avg = avg + googleMapsVector[i][j].geojsonProperties.value;
+            }
+            total_len = total_len + googleMapsVector[i].length;
+          }
+          avg = avg/total_len;
+
+          var sum = 0;
+          for(var i = 0; i < googleMapsVector.length; i++){
+						for (var j = 0; j <googleMapsVector[i].length; j++){
+              sum = sum + Math.pow(googleMapsVector[i].length - avg, 2);
+            }
+          }
+          var scale = Math.sqrt(sum/total_len);
+
 					// assign the shapes to map
 					for(var i = 0; i < googleMapsVector.length; i++){
 						for (var j = 0; j <googleMapsVector[i].length; j++){
-							var heat = Math.round(128 * googleMapsVector[i][j].geojsonProperties.value/.20);
-							var color = "rgb("+(128-heat)+","+(128+heat)+",0)";
+              var val = Math.abs(googleMapsVector[i][j].geojsonProperties.value);
+              var temp_scale = scale;
+              var heat = 0;
+              while (temp_scale < val) {
+                temp_scale = temp_scale * 2;
+                heat = heat + 55;
+              }
+							var color = "rgb("+(heat)+","+(heat)+",0)";
 							googleMapsVector[i][j].setOptions({
 								strokeColor: color,
 								fillColor: color});
