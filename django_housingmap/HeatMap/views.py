@@ -9,7 +9,7 @@ from chartit import DataPool, Chart #for creating statistical charts
 
 
 def home(request):
-    housezip = request.GET.get('Zip', '95129')
+    housezip = request.GET.get('zip', '95129')
     source = HouseData.objects.filter(house_zip=str(housezip))
     try:
        	source[0]
