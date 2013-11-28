@@ -11,6 +11,7 @@ from chartit import DataPool, Chart #for creating statistical charts
 def home(request):
     housezip = request.GET.get('zip', '95129')
     source = HouseData.objects.filter(house_zip=str(housezip))
+    title = 'House prices of zipcode ' + housezip
     try:
        	source[0]
     except IndexError:
@@ -19,7 +20,6 @@ def home(request):
     #step 1, create a datapol with data we want to retrieve
     housezip = str(housezip)
     source = HouseData.objects.filter(house_zip=housezip)
-    title = 'House prices of zipcode ' + housezip
     try:
 	source[0]
     except IndexError:
