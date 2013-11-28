@@ -11,7 +11,12 @@ urlpatterns = patterns('HeatMap.views',
 	url(r'^getHousingGrowthinBoundingboxTestForm.html$','price_growth_in_bounding_box_to_geojson_form'),
 	url(r'^ZipCodeTest.html$', 'zip_code_test'),
 	url(r'^GeoJSON.js$','geojson_js_parser'),
+<<<<<<< HEAD
         url(r'', 'home')
+=======
+	url(r'^Chart/$', 'home')
+#    url(r'', 'home'),
+>>>>>>> c0607889fa072addb802d1ed60e33f4d403a5592
 ) 
 
 

@@ -2,67 +2,23 @@
 <html lang="en">
 
   <head>
-  	
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="{{STATIC_URL}}/static/assets/ico/favicon.png" >
-
-    <title>Housing HeatMap</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="{{STATIC_URL}}/static/dist/css/bootstrap.css" rel="stylesheet">
-
-    <!-- code to include the highcharts and jQuery libraries goes here -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <script src="http://code.highcharts.com/highcharts.js"></script>
     <!-- load_charts filter takes a comma-separated list of id's where -->
     <!-- the charts need to be rendered to                             -->
     {% load chartit %}
   </head>
 
   <body>
-  <br>
-  <br>
 
-  <h1>Housing Price Trends</h1>
+      {% include 'navbar2.html' %}	
 
-  <div id="house_container"> {{housedata|load_charts:"house_container"}}</div>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Housing Heat Map</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
+      <h1>Housing Price Trends</h1>
+      <form action method="get">
+	 Enter ZipCode: <input type="text" name="zip" value="95129"><input type="submit" value="Go">
+      </form>
+      <div id="house_container"> 
+         {{housedata|load_charts:"house_container"}}
       </div>
-    </div>
-
-	<form action>
-		Enter ZipCode: <input type="text" name="Zip" value=""><input type="submit" value="Go">
-	</form>
 	
-	{% if h %}
-	{% for h in house %}
-		{{ h.house_date }}
-		${{ h.house_price }}
-		{{ h.house_zip }}<br>
-	{% endfor %}
-	{% endif %}
-	
-    </div><!-- /.container -->
-    
   </body>
 </html>
 
