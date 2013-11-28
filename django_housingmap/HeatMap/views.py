@@ -8,14 +8,20 @@ from django.core.cache import cache #memcached
 from chartit import DataPool, Chart #for creating statistical charts
 
 
-def home(request, housezip):
-    #p = "none"#HouseData.objects.filter(house_zip=95129)
+def home(request):
+    housezip = request.GET.get('Zip', '95129')
+    source = HouseData.objects.filter(house_zip=str(housezip))
+    try:
+       	source[0]
+    except IndexError:
+     	title = str(housezip) + ' does not Exist! Try Again!'
+
     #step 1, create a datapol with data we want to retrieve
     housedata = \
             DataPool(
                     series=
                     [{'options': {
-                        'source': HouseData.objects.filter(house_zip=str(housezip))},
+                        'source': source},
                         'terms': [
                             'house_date', 
                             'house_price']}
