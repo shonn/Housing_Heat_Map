@@ -9,22 +9,14 @@ from chartit import DataPool, Chart #for creating statistical charts
 
 
 def home(request):
-<<<<<<< HEAD
     housezip = request.GET.get('Zip', '95129')
     source = HouseData.objects.filter(house_zip=str(housezip))
     try:
        	source[0]
     except IndexError:
      	title = str(housezip) + ' does not Exist! Try Again!'
-
-=======
     #p = "none"#HouseData.objects.filter(house_zip=95129)
->>>>>>> c0607889fa072addb802d1ed60e33f4d403a5592
     #step 1, create a datapol with data we want to retrieve
-    if 'zip' in request.GET:
-	housezip = request.GET['zip']
-    else:
-	housezip = 95129
     housezip = str(housezip)
     source = HouseData.objects.filter(house_zip=housezip)
     title = 'House prices of zipcode ' + housezip
