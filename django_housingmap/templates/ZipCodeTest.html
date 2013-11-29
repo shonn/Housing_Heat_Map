@@ -79,7 +79,7 @@
               var val = googleMapsVector[i][j].geojsonProperties.value;
               var temp_scale = scale;
               var heat = 0;
-              var color = "";
+              var color = "rgb("+(255)+","+(0)+",0)";
 
               while (temp_scale < val) {
                 temp_scale = temp_scale * 1.2;
@@ -93,7 +93,7 @@
                 color = "rgb("+(0)+","+(255)+",0)";
               }
               else if (heat < 3) {
-                color = "rgb("+(255)+","+(0)+",0)";
+                color = "rgb("+(255)+","+(0)+",255)";
               }
 
               if (val < 0) {
@@ -129,8 +129,8 @@
 				// abort the previous request
 				// prevents loading the wrong set of polygons
 				// ! may or may not stop django's db request.
-        var year1 = document.getElementById("input_year1").value;
-        var year2 = document.getElementById("input_year2").value;
+        year1 = document.getElementById("input_year1").value;
+        year2 = document.getElementById("input_year2").value;
 				polygonRequest.abort();
 				//*
 				var GETstring ="?westLongitude="+map.getBounds().getSouthWest().lng()
