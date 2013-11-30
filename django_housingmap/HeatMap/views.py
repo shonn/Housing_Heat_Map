@@ -5,25 +5,23 @@ from django.template import RequestContext
 from HeatMap.models import HouseData, Zipcodeshapes
 from django.db.models import Avg #aggregation
 from django.core.cache import cache #memcached
+import memcache
+import pickle
 from chartit import DataPool, Chart #for creating statistical charts
 
 
+mc = memcache.Client(['127.0.0.1:11211'], debug=0)
 def home(request):
     housezip = request.GET.get('zip', '95129')
     source = HouseData.objects.filter(house_zip=str(housezip))
     title = 'House prices of zipcode ' + housezip
-    try:
-       	source[0]
-    except IndexError:
-     	title = str(housezip) + ' does not Exist! Try Again!'
-    #p = "none"#HouseData.objects.filter(house_zip=95129)
-    #step 1, create a datapol with data we want to retrieve
     housezip = str(housezip)
+    #step 1, create a datapol with data we want to retrieve
     source = HouseData.objects.filter(house_zip=housezip)
     try:
-	source[0]
+        source[1]
     except IndexError:
-	title = 'House prices of zipcode ' + housezip
+        title = "No records for zipcode " + housezip
     housedata = \
             DataPool(
                     series=
@@ -69,9 +67,8 @@ def price_growth_in_bounding_box_to_geojson_form(request):
 		'northLatitude': 37.4348799782838,
 		'southLatitude': 37.410954310473784,}
 	return render(request, 'BoxTest.html', context)  
-	  
+
 def price_growth_in_bounding_box_to_geojson(request):
-	data_things = []
         try:
                 southLatitude = request.GET['southLatitude']
                 westLongitude = request.GET['westLongitude']
@@ -82,15 +79,13 @@ def price_growth_in_bounding_box_to_geojson(request):
                 box_wkt+= eastLongitude + ' ' + northLatitude + ','
                 box_wkt+= eastLongitude + ' ' + southLatitude + ','
                 box_wkt+= westLongitude + ' ' + southLatitude + '))'
-                shapes = cache.get(southLatitude + westLongitude + eastLongitude)
-                data_things = cache.get(southLatitude + westLongitude + eastLongitude + 'd')
-                if not shapes:
-                    shapes = Zipcodeshapes.objects.filter(geom__intersects = box_wkt)
-                    cache.set(southLatitude + westLongitude + eastLongitude, shapes)
+                shapes = Zipcodeshapes.objects.filter(geom__intersects = box_wkt)
                 year = request.GET['year1']
-		year1 = str(year)+'-12-31'
+                year1 = str(year)+'-12-31'
                 year = request.GET['year2']
-		year2 = str(year) + '-12-31'
+                year2 = str(year) + '-12-31'
+                data_key = str(southLatitude + westLongitude) + year1 + year2
+                data_things = mc.get(data_key)
                 if not data_things:
                     data_things = []
                     for shape in shapes:
@@ -103,7 +98,7 @@ def price_growth_in_bounding_box_to_geojson(request):
                                             'value': (price2-price1)/price1})
                             except(HouseData.DoesNotExist):
                                     continue
-                    cache.set(southLatitude + westLongitude + eastLongitude + 'd', data_things)
+                    mc.set(data_key, data_things)
         except (KeyError):
                 return price_growth_in_bounding_box_to_geojson_form(request)
         except (Zipcodeshapes.DoesNotExist, ValueError):
@@ -116,8 +111,8 @@ def price_growth_in_bounding_box_to_geojson(request):
                         'error_message':'There was an error processing your request',
                 })
         else:
-		context={'data': data_things}
-		return render(request, 'GeoJSON.json', context)
+                context={'data': data_things}
+                return render(request, 'GeoJSON.json', context)
 
 def zip_code_test(request):
 	context = {}
