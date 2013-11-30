@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<link rel="stylesheet" href="/resources/demos/style.css">
+	<script>
+	$(function() {
+		$( "#slider-range" ).slider({
+			position: 'absolute',
+			orientation: "vertical",
+			range: true,
+			min:1997,
+			max:2013,
+			step:1,
+			values: [ 1997, 2013 ],
+			slide: function( event, ui ) {
+				$( "#amount" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+			}
+		});
+		$( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) +
+			" - " + $( "#slider-range" ).slider( "values", 1 ) );
+	});
+
+	</script>
+</head>
+<body>
+    <div class="selector">
+	<label for="amount">Range:</label>
+	<input type="text" id="amount" style="border:0; color:#fffff; font-weight:bold;">
+	<div id="slider-range" style="height:250px; left:50px"></div>
+    </div>
+</body>
+</html>
+

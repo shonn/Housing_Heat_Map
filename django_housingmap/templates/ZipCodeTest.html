@@ -129,8 +129,8 @@
 				// abort the previous request
 				// prevents loading the wrong set of polygons
 				// ! may or may not stop django's db request.
-        year1 = document.getElementById("input_year1").value;
-        year2 = document.getElementById("input_year2").value;
+				var year1 = $( "#slider-range" ).slider( "values", 0 );
+				var year2 = $( "#slider-range" ).slider( "values", 1 );
 				polygonRequest.abort();
 				//*
 				var GETstring ="?westLongitude="+map.getBounds().getSouthWest().lng()
@@ -167,16 +167,11 @@
 	{% include 'navbar2.html' %}
 
 		<div id="side-panel">
-			<form >
+		{% include 'slider.html' %}
+			<form style="left:50px">
 				<fieldset>
-				
-					<label for="input_year1">Year1: </label>
-					<input type="text" id="input_year1" name="input_year1"/><br>
-					
-					<label for="input_year2">Year2: </label>
-					<input type="text" id="input_year2" name="input_year2"/><br>
-					
 					<input type="button" value="Go!" onclick="goButton()"/>
+
 				</fieldset>
 			</form>
 			<div id="debug">
