@@ -30,7 +30,7 @@
 		
 		var polygonRequest = new XMLHttpRequest();
 		polygonRequest.onload = function() {
-					document.getElementById('debug').innerHTML += "Recieved JSON<br>";
+				//	document.getElementById('debug').innerHTML += "Recieved JSON<br>";
 					var response = this.responseText;
 					//document.getElementById('debug').innerHTML += response;
 					var result = JSON.parse(response);
@@ -110,16 +110,16 @@
 				};
 		
 		google.maps.event.addListener(map,'idle', function(){		
-		  		document.getElementById('debug').innerHTML += "Idle<br>";
+		  	//	document.getElementById('debug').innerHTML += "Idle<br>";
 				// asynchronous json request      
-				document.getElementById('debug').innerHTML += "Fetching JSON<br>";
+				//document.getElementById('debug').innerHTML += "Fetching JSON<br>";
 				
 				var westLongitude = map.getBounds().getSouthWest().lng();
 				var southLatitude = map.getBounds().getSouthWest().lat();
 				var eastLongitude = map.getBounds().getNorthEast().lng();
 				var northLatitude = map.getBounds().getNorthEast().lng();
 				
-				document.getElementById('debug').innerHTML += 
+				//document.getElementById('debug').innerHTML += 
 					'Polygon((' + westLongitude + ' ' + southLatitude + ',' 
 						+ westLongitude + ' ' + northLatitude + ','
 						+ eastLongitude + ' ' + northLatitude + ','
@@ -141,7 +141,7 @@
 					+"&year2="+year2;
 				//*/
 				
-				document.getElementById('debug').innerHTML+= GETstring + '<br>';
+			//	document.getElementById('debug').innerHTML+= GETstring + '<br>';
 				
 				polygonRequest.open("GET", "{% url 'HeatMap:price_growth_in_bounding_box_to_geojson' %}" + GETstring, true);
 				polygonRequest.send();
